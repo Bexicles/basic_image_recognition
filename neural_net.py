@@ -6,7 +6,6 @@ n = control_panel.solutions_number
 p = control_panel.image_pixels
 a = control_panel.alpha
 N = data_setup.t1   # number of 'images' in training data set
-b = control_panel.batch_size    # number of 'imaages' per batch
 
 X_train = data_setup.Train_X  # training matrix of x values
 Y_train = data_setup.Hot_train_Y  # training vector of y labels (one hot format)

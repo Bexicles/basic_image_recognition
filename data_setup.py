@@ -1,6 +1,8 @@
 import numpy as np
 import control_panel
 
+n = control_panel.solutions_number  # number of possible solutions
+
 # Loads input data matrix from source file, then splits it into a training set & a test set
 A = np.load("Data/image_data.npy")
 np.random.shuffle(A)
@@ -23,19 +25,15 @@ Test_X = Test_split[1]
 Test_Y = Test_split[0]
 
 # Convert the y-vectors into one-hot matrices
-Hot_train_Y = np.zeros((Train_Y.shape[0],Train_Y.shape[1]+1))
-Hot_test_Y = np.zeros((Test.shape[0],Test_Y.shape[1]+1))
 
-for i in range(0,Train_Y.shape[0]):
-    if Train_Y[i] == 1:
-        Hot_train_Y[i, 1] = 1
+def convert_to_one_hot(A):
+    temp = np.zeros((A.shape[0],A.shape[1]+(n-1)))  # intialises a matrix of zeros with extra column
 
-    else:
-        Hot_train_Y[i, 0] = 1
+    for i in range(0, A.shape[0]):
+        for j in range(0,n):
+            if A[i] == j:
+                temp[i, j] = 1
+    return temp
 
-for i in range(0,Test_Y.shape[0]):
-    if Test_Y[i] == 1:
-        Hot_test_Y[i, 1] = 1
-
-    else:
-        Hot_test_Y[i, 0] = 1
+Hot_train_Y = convert_to_one_hot(Train_Y)
+Hot_test_Y = convert_to_one_hot(Test_Y)
