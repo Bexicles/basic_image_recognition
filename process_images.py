@@ -6,8 +6,8 @@ from os import listdir
 from os.path import isfile, join
 
 size = control_panel.image_size
-s = size[0]*size[1] # number of features (pixels) in each image
-X = np.zeros(shape=(1, s))  # initialise image matrix with zeros in one row
+p = control_panel.image_pixels # number of features (pixels) in each image
+X = np.zeros(shape=(1, p))  # initialise image matrix with zeros in one row
 
 def get_thumbs(File_Path):
     photos = [f for f in listdir(File_Path) if isfile(join(File_Path, f))]

@@ -9,15 +9,15 @@ A_split = np.vsplit(A, [int(A.shape[0] * control_panel.training_split), A.shape[
 Train = A_split[0]
 Test = A_split[1]
 
+# Splits out Ys and Xs for training and test data sets#
+t1 = Train.shape[1]
+t2 = Test.shape[1]
 
-# Splits out Ys and Xs for training and test data sets
-Train_split = np.hsplit(Train, [1, Train.shape[0]])
+Train_split = np.hsplit(Train, [1, t1])
 Train_X = Train_split[1]
 Train_Y = Train_split[0]
 
-Test_split = np.hsplit(Test, [1, Test.shape[0]])
-Test_Y = Test_split[1]
+
+Test_split = np.hsplit(Test, [1, t2])
+Test_X = Test_split[1]
 Test_Y = Test_split[0]
-
-
-
