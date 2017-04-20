@@ -9,9 +9,9 @@ N = data_setup.t1   # number of 'images' in training data set
 b = control_panel.batch_size    # number of 'imaages' per batch
 
 X_train = data_setup.Train_X  # training matrix of x values
-Y_train = data_setup.Train_Y  # training vector of y labels
+Y_train = data_setup.Hot_train_Y  # training vector of y labels (one hot format)
 X_test = data_setup.Test_X  # test matrix of x values
-Y_test = data_setup.Test_Y  # test vector of y labels
+Y_test = data_setup.Hot_test_Y  # test vector of y labels (one hot format)
 
 
 x = tf.placeholder(tf.float32, [None, p])   # placeholder for the input data, x

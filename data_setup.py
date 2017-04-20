@@ -21,3 +21,21 @@ Train_Y = Train_split[0]
 Test_split = np.hsplit(Test, [1, t2])
 Test_X = Test_split[1]
 Test_Y = Test_split[0]
+
+# Convert the y-vectors into one-hot matrices
+Hot_train_Y = np.zeros((Train_Y.shape[0],Train_Y.shape[1]+1))
+Hot_test_Y = np.zeros((Test.shape[0],Test_Y.shape[1]+1))
+
+for i in range(0,Train_Y.shape[0]):
+    if Train_Y[i] == 1:
+        Hot_train_Y[i, 1] = 1
+
+    else:
+        Hot_train_Y[i, 0] = 1
+
+for i in range(0,Test_Y.shape[0]):
+    if Test_Y[i] == 1:
+        Hot_test_Y[i, 1] = 1
+
+    else:
+        Hot_test_Y[i, 0] = 1
