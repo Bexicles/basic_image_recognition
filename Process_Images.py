@@ -1,11 +1,12 @@
 from PIL import Image
+import control_panel
 import os
 import numpy as np
 from os import listdir
-from os.path import isfile, join, splitext
+from os.path import isfile, join
 
-size = (128, 128)
-s = 128*128 # number of features (pixels) in each image
+size = control_panel.image_size
+s = size[0]*size[1] # number of features (pixels) in each image
 X = np.zeros(shape=(1, s))  # initialise image matrix with zeros in one row
 
 def get_thumbs(File_Path):
@@ -16,7 +17,7 @@ def get_thumbs(File_Path):
             try:
                 img = Image.open(File_Path + infile).convert("L")  # convert image to greyscale
                 img = img.resize(size)  # resize image
-                img.save("Processed/" + outfile, "PNG") # save as new image in the Processed folder
+                img.save("Data/Processed/" + outfile, "PNG") # save as new image in the Processed folder
                 a = np.asarray(img).reshape(-1) # reshape each matrix of image's pixel alpha values to a vector
                 global X
                 X = np.vstack([X,a])    # add vector of each image's pixel alpha values to new row of Image matrix
@@ -25,11 +26,11 @@ def get_thumbs(File_Path):
                 print("cannot create thumbnail for" +e, infile)
 
 
-get_thumbs("Raw_Bex/")
+get_thumbs("Data/Raw_Bex/")
 X = np.delete(X, (0), axis=0)   # delete the first row of Image matrix (the zeros row)
 n = X.shape[0]
 
-get_thumbs("Raw_Peet/")
+get_thumbs("Data/Raw_Peet/")
 m = (X.shape[0]) - n
 
 bex = np.ones((n,1), dtype=np.int)   # create vector to append to front of image matrix, to label who is in photo (1 = bex)
@@ -37,4 +38,4 @@ peet = np.zeros((m,1), dtype=np.int)   # create vector to append to front of ima
 
 x = np.vstack([bex, peet])
 X = np.hstack([x, X])
-np.savetxt('image_data.txt', X)  # save newly created image matrix to a txt data file, so can import to neural net
+np.save('Data/image_data', X)  # save newly created image matrix to a data file, so can import to neural net
