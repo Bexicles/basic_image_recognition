@@ -54,17 +54,19 @@ biases = {
 # Model
 y = multilayer_perceptron(x, weights, biases)
 
-cross_entropy = tf.reduce_mean(-tf.reduce_sum(y_ * tf.log(y), reduction_indices=[1]))   # cross entropy of difference between calculated answer and actual answer
-train_step = tf.train.GradientDescentOptimizer(a).minimize(cross_entropy)   # performs Gradient Descent to minimise cross entropy
+cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels=y_, logits=y))
+train_step = tf.train.AdamOptimizer(a).minimize(cross_entropy)
+correct_prediction = tf.equal(tf.argmax(y, 1), tf.argmax(y_, 1))
+accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
+
 
 sess = tf.InteractiveSession()
 sess.run(tf.global_variables_initializer())
 
-sess.run(train_step, feed_dict={x: X_train, y_: Y_train})
+#writer = tf.train.SummaryWriter("Logs/", graph=tf.get_default_graph())
 
-# Test model
-correct_prediction = tf.equal(tf.argmax(y, 1), tf.argmax(y_, 1))
+train_accuracy = accuracy.eval(feed_dict={ x: X_train, y_: Y_train})
+print("training accuracy %g"%(train_accuracy))
+train_step.run(feed_dict={ x: X_train, y_: Y_train})
 
-# Calculate accuracy
-accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
-print(sess.run(accuracy, feed_dict={x: X_test, y_: Y_test}))
+print("test accuracy %g"%accuracy.eval(feed_dict={ x: X_test, y_: Y_test}))
