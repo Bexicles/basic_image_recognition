@@ -26,6 +26,7 @@ Test_Y = Test_split[0]
 
 # Convert the y-vectors into one-hot matrices
 
+
 def convert_to_one_hot(A):
     temp = np.zeros((A.shape[0],A.shape[1]+(n-1)))  # intialises a matrix of zeros with extra column
 

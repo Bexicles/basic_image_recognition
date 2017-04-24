@@ -1,7 +1,7 @@
-from PIL import Image
+from PIL import Image, ImageOps
 import control_panel
-import os
 import numpy as np
+import os
 from os import listdir
 from os.path import isfile, join
 
@@ -9,15 +9,16 @@ size = control_panel.image_size
 p = control_panel.image_pixels # number of features (pixels) in each image
 X = np.zeros(shape=(1, p))  # initialise image matrix with zeros in one row
 
+
 def get_thumbs(File_Path):
     photos = [f for f in listdir(File_Path) if isfile(join(File_Path, f))]
     for infile in photos:
-        outfile = os.path.splitext(infile)[0] + ".jpg"
+        outfile = os.path.splitext(infile)[0]
         if infile != outfile:
             try:
                 img = Image.open(File_Path + infile).convert("L")  # convert image to greyscale
                 img = img.resize(size)  # resize image
-                img.save("Data/Processed/" + outfile, "PNG") # save as new image in the Processed folder
+                img.save("Data/Processed/" + outfile + ".png", "PNG") # save as new image in the Processed folder
                 a = np.asarray(img).reshape(-1) # reshape each matrix of image's pixel alpha values to a vector
                 global X
                 X = np.vstack([X,a])    # add vector of each image's pixel alpha values to new row of Image matrix

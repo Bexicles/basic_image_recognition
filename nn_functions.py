@@ -15,3 +15,10 @@ def conv2d(x, W):
 def max_pool_2x2(x):
     return tf.nn.max_pool(x, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
 
+def fill_feed_dict(data, x_placeholder, y_placeholder):
+
+    images_feed, labels_feed = data.next_batch(batch_size, fake_data)
+    feed_dict = {
+        x_placeholder: images_feed,
+        y_placeholder: labels_feed
+    }

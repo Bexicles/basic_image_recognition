@@ -2,6 +2,8 @@ import tensorflow as tf
 import control_panel
 import data_setup
 
+FLAGS = None    # basic model parameters as flags
+
 n = control_panel.solutions_number  # number of solution classes
 p = control_panel.image_pixels  # number of input pixels
 a = control_panel.alpha # learning rate
@@ -65,6 +67,7 @@ sess.run(tf.global_variables_initializer())
 
 #writer = tf.train.SummaryWriter("Logs/", graph=tf.get_default_graph())
 
+for i in range()
 train_accuracy = accuracy.eval(feed_dict={ x: X_train, y_: Y_train})
 print("training accuracy %g"%(train_accuracy))
 train_step.run(feed_dict={ x: X_train, y_: Y_train})
