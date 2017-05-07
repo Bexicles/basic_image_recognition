@@ -38,3 +38,5 @@ def convert_to_one_hot(A):
 
 Hot_train_Y = convert_to_one_hot(Train_Y)
 Hot_test_Y = convert_to_one_hot(Test_Y)
+
+print("Data Setup is now complete!")
