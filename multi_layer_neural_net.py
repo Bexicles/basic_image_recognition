@@ -21,13 +21,18 @@ Y = tf.placeholder(tf.float32, [None, n], name="Y")  # placeholder for the actua
 
 
 # Initialise weights & biases
-w1 = tf.Variable(tf.random_normal([p, n_hidden_1]))
-w2 = tf.Variable(tf.random_normal([n_hidden_1, n_hidden_2]))
-w3 = tf.Variable(tf.random_normal([n_hidden_2, n]))
 
-b1 = tf.Variable(tf.random_normal([n_hidden_1]))
-b2 = tf.Variable(tf.random_normal([n_hidden_2]))
-b3 = tf.Variable(tf.random_normal([n]))
+def init_weights(shape, name):
+    return tf.Variable(tf.random_normal(shape, stddev=0.01), name=name)
+
+
+w1 = init_weights([p, n_hidden_1], "w1")
+w2 = init_weights([n_hidden_1, n_hidden_2], "w2")
+w3 = init_weights([n_hidden_2, n], "w3")
+
+b1 = init_weights([n_hidden_1], "b1")
+b2 = init_weights([n_hidden_2], "b2")
+b3 = init_weights([n], "b3")
 
 
 # Histograms to allow me to visualise weights & biases
