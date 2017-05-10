@@ -21,7 +21,6 @@ Y = tf.placeholder(tf.float32, [None, n], name="Y")  # placeholder for the actua
 
 
 # Initialise weights & biases
-
 def init_weights(shape, name):
     return tf.Variable(tf.random_normal(shape, stddev=0.01), name=name)
 
@@ -75,6 +74,8 @@ with tf.name_scope("accuracy"):
     accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
     tf.summary.scalar("accuracy", accuracy)
 
+# Ability to save and restore all variables
+saver = tf.train.Saver()
 
 # Create a session
 with tf.Session() as sess:
@@ -82,7 +83,7 @@ with tf.Session() as sess:
     writer = tf.summary.FileWriter("./Logs/", sess.graph)
     merged = tf.summary.merge_all(key="summaries")
 
-    tf.initialize_all_variables().run()
+    tf.global_variables_initializer().run()
 
 
     for i in range(100):
@@ -92,3 +93,6 @@ with tf.Session() as sess:
         summary, acc = sess.run([merged, accuracy], feed_dict={X: X_test, Y: Y_test})
         writer.add_summary(summary, i)
         print(i, acc)
+
+    save_path = saver.save(sess, "/Temp/model.ckpt")
+    print("Model saved in file: %s" % save_path)
