@@ -1,3 +1,5 @@
 .idea
 Data
 Data/image_data.txt
+Logs
+__pycache__

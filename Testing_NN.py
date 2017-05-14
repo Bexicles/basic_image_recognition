@@ -7,4 +7,4 @@ Peet = [1,0]
 
 class Individual_Images(unittest.TestCase):
     def test_individual_images(self):
-        self.assertEqual(Bex, )
+        self.assertEqual(Bex, "/Data/Processed_Test/Bex_1")

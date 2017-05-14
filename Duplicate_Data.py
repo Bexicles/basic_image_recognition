@@ -18,5 +18,7 @@ def mirror_images(File_Path):
                 print("cannot create mirrored image for" +e, infile)
 
 
-mirror_images("Data/Raw_Bex/")
-mirror_images("Data/Raw_Peet/")
+#mirror_images("Data/Raw_Bex/")
+#mirror_images("Data/Raw_Peet/")
+#mirror_images("Data/Raw_Dad/")
+mirror_images("Data/Raw_Joan/")

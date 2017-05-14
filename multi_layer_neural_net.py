@@ -2,7 +2,7 @@ import tensorflow as tf
 import control_panel
 import data_setup
 
-
+# Create variables
 n = control_panel.solutions_number  # number of solution classes
 p = control_panel.image_pixels  # number of input pixels
 a = control_panel.alpha # learning rate
@@ -16,7 +16,7 @@ Y_train = data_setup.Hot_train_Y  # training vector of y labels (one hot format)
 X_test = data_setup.Test_X  # test matrix of x values
 Y_test = data_setup.Hot_test_Y  # test vector of y labels (one hot format)
 
-X = tf.placeholder(tf.float32, [None, p], name="X")   # placeholder for the input data, x
+X = tf.placeholder(tf.float32, [None, p], name="X")  # placeholder for the input data, x
 Y = tf.placeholder(tf.float32, [None, n], name="Y")  # placeholder for the actual values of y, in training data
 
 
@@ -86,7 +86,7 @@ with tf.Session() as sess:
     tf.global_variables_initializer().run()
 
 
-    for i in range(100):
+    for i in range(200):
         for start, end in zip(range(0, len(X_train), 128), range(128, len(X_train)+1, 128)):
             sess.run(train_step, feed_dict={X: X_train[start: end], Y: Y_train[start: end]})
 
